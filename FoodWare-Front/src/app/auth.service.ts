@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { catchError, map } from 'rxjs';
 
 @Injectable()
 export class AuthService {
@@ -8,9 +8,15 @@ export class AuthService {
   constructor(private http:HttpClient) { }
 
   login(credentials: any){
-    return this.http.post('http:/localhost:8080/login',JSON.stringify(credentials))
-    .pipe(map(response=>{
-      console.log(credentials);
-    }))
-  }
+    return this.http.post('http://localhost:8080/login',JSON.stringify(credentials),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })})
+    .pipe(
+      map((response: any) => {
+        console.log("map", credentials);
+      }),
+      catchError(e => {
+        console.log("the error", e);
+        return e;
+      })
+    )
+  };
 }
