@@ -7,7 +7,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import {HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from './service/auth.service';
 
 @NgModule({
   declarations: [
