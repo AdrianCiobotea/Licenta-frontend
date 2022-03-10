@@ -19,7 +19,7 @@
                     <h3>Sign In</h3>
                 </div>
                 <div class="card-body">
-                    <form #f="ngForm" (ngSubmit)="signIn(f.value)">
+                    <form #f="ngForm" (ngSubmit)="validateUser(f.value)">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
