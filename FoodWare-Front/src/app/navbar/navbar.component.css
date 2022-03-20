@@ -1,3 +1,17 @@
+
+  @import url('https://fonts.googleapis.com/css?family=Numans');
+html,
+body {
+    font-family: 'Numans', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.container {
+    align-content: center;
+}
 .nav-item { 
-    cursor: pointer;
-  }
+  cursor: pointer;
+}

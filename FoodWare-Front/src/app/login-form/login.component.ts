@@ -20,17 +20,17 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  validateUser(loginForm: NgForm) {
-    this.authService.validateLoginDetails(this.model).subscribe(
-           responseData => {
-        window.sessionStorage.setItem("Authorization",responseData.headers.get('Authorization') || "");
-        this.model = <any> responseData.body;
-        this.model.authStatus = 'AUTH';
-        window.sessionStorage.setItem("userdetails",JSON.stringify(this.model));
-        this.router.navigate(['dashboard']);
-      }, (error: any) => {
-        console.log(error);
-      });
+   validateUser(loginForm: NgForm) {
+  //   this.authService.validateLoginDetails(this.model).subscribe(
+  //          responseData => {
+  //       window.sessionStorage.setItem("Authorization",responseData.headers.get('Authorization') || "");
+  //       this.model = <any> responseData;
+  //       this.model.authStatus = 'AUTH';
+  //       window.sessionStorage.setItem("userdetails",JSON.stringify(this.model));
+  //       this.router.navigate(['dashboard']);
+  //     }, (error: any) => {
+  //       console.log(error);
+  //     });
 
   }
      
