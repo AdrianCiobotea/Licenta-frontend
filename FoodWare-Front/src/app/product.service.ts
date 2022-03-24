@@ -11,18 +11,18 @@ export class ProductService {
     return this.http.get('http://localhost:8080/product');
 }
 create(product: any) { 
-  return this.http.post('http://localhost:8080/product/insert',JSON.stringify(product),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })})
+  return this.http.post('http://localhost:8080/product/insert',JSON.stringify(product),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })});
 }
 
 get(productId : number) { 
   return this.http.get('http://localhost:8080/product');
 }
 
-update(productId, product) { 
-  return this.db.object('/products/' + productId).update(product);
+update(productId: number, product: any) { 
+  return this.http.post('http://localhost:8080/product/update?'+productId,JSON.stringify(product),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })});
 }
 
-delete(productId) { 
-  return this.db.object('/products/' + productId).remove();
+delete(productId:number) { 
+  return this.http.get('http://localhost:8080/product/delete?'+productId);
 }
 }
