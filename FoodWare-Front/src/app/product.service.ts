@@ -8,21 +8,21 @@ export class ProductService {
 
   constructor(private http:HttpClient) { }
   getAll() { 
-    return this.http.get('http://localhost:8080/product');
+    return this.http.get('http://localhost:8084/product');
 }
 create(product: any) { 
-  return this.http.post('http://localhost:8080/product/insert',JSON.stringify(product),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })});
+  return this.http.post('http://localhost:8084/product/insert',JSON.stringify(product),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })});
 }
 
 get(productId : number) { 
-  return this.http.get('http://localhost:8080/product');
+  return this.http.get('http://localhost:8084/product');
 }
 
 update(productId: number, product: any) { 
-  return this.http.post('http://localhost:8080/product/update?'+productId,JSON.stringify(product),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })});
+  return this.http.post('http://localhost:8084/product/update?'+productId,JSON.stringify(product),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })});
 }
 
 delete(productId:number) { 
-  return this.http.get('http://localhost:8080/product/delete?'+productId);
+  return this.http.get('http://localhost:8084/product/delete?'+productId);
 }
 }

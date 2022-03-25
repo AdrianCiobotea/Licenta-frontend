@@ -9,11 +9,11 @@ import { switchMap } from 'rxjs';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent {
 
   products: Product[] = [];
   filteredProducts: Product[] = [];
-  category!: string;
+  categoryId!: number;
 
   constructor(
     route: ActivatedRoute,
@@ -24,16 +24,13 @@ export class ProductsComponent implements OnInit {
         this.products = products;
         return route.queryParamMap;
       })).subscribe((params:any) => {
-        this.category = params.get('category');
+        this.categoryId = params.get('category');
         
-        this.filteredProducts = (this.category) ? 
-          this.products.filter(p => p.category === this.category) : 
+        this.filteredProducts = (this.categoryId) ? 
+          this.products.filter(p => p.category.id === this.categoryId) : 
           this.products;
       });
       
       
-  }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 }

@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, NgModule, OnInit } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../service/auth.service';
 import { User } from '../model/user.model';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'login-form',

@@ -10,8 +10,11 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from './service/auth.service';
 import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
-import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { CategoryService } from './category.service';
+import { ProductService } from './product.service';
+import { ProductCardComponent } from './product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -20,8 +23,9 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
     NavbarComponent,
     HomeComponent,
     ProductsComponent,
-    AdminProductsComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductCardComponent,
+    ProductFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,9 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
     ])    
   ],
   providers: [
-    AuthService
+    AuthService,
+    CategoryService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })
