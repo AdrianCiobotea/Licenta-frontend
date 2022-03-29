@@ -5,13 +5,13 @@ export class Category{
 
     public id: number;
     public name : string;
-    public group : Group;
+    public groupId : number;
   
   
-    constructor(id?: number, name?: string, group?:Group){
+    constructor(id?: number, name?: string, groupId?:number){
           this.id = id!;
           this.name = name!;
-         this.group = group!;
+         this.groupId = groupId!;
     }
   
   }

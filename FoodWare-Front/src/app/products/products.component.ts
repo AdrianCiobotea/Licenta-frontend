@@ -27,7 +27,7 @@ export class ProductsComponent {
         this.categoryId = params.get('category');
         
         this.filteredProducts = (this.categoryId) ? 
-          this.products.filter(p => p.category.id === this.categoryId) : 
+          this.products.filter(p => p.categoryId === this.categoryId) : 
           this.products;
       });
       
