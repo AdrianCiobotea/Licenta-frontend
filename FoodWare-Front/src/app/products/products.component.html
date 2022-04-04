@@ -1,17 +1,14 @@
 <head>
     <title>Products Page</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <div class="row">
     <div class="col-3">
       <product-filter [category]="categoryId"></product-filter>
     </div>
     <div class="col">
-      <div class="row">
-          <ng-container *ngFor="let p of filteredProducts; let i = index">
-            <div class="col">
+      <div class="row ">
+          <ng-container *ngFor="let p of filteredProducts | orderBy: 'categoryId'; let i = index">
+            <div class="col mb-3">
               <product-card [product]="p"></product-card>
             </div>
             <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>

@@ -15,6 +15,10 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
 import { CategoryService } from './category.service';
 import { ProductService } from './product.service';
 import { ProductCardComponent } from './product-card/product-card.component';
+import { OrderByPipe } from './pipes/order-by.pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 
 @NgModule({
   declarations: [
@@ -25,16 +29,31 @@ import { ProductCardComponent } from './product-card/product-card.component';
     ProductsComponent,
     ProductFormComponent,
     ProductCardComponent,
-    ProductFilterComponent
+    ProductFilterComponent,
+    OrderByPipe,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    Ng2SearchPipeModule,
     FormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent },
+      { path: '', component: ProductsComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'login', component: LoginComponent },
+      { 
+        path: 'admin/products/new', 
+        component: ProductFormComponent
+      },
+      { 
+        path: 'admin/products/:id', 
+        component: ProductFormComponent 
+      },
+      { 
+        path: 'admin/products', 
+        component: AdminProductsComponent
+      },
     ])    
   ],
   providers: [

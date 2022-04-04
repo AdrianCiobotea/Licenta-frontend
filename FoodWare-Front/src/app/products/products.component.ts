@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from '../model/product.model';
 import { ProductService } from '../product.service';
 import { switchMap } from 'rxjs';
+import { Ng2SearchPipe } from 'ng2-search-filter';
 
 @Component({
   selector: 'products',
@@ -25,11 +26,20 @@ export class ProductsComponent {
         return route.queryParamMap;
       })).subscribe((params:any) => {
         this.categoryId = params.get('category');
-        
-        this.filteredProducts = (this.categoryId) ? 
-          this.products.filter(p => p.categoryId === this.categoryId) : 
-          this.products;
+        this.filteredProducts = (this.categoryId) ? this.products.filter(p => p.categoryId == this.categoryId) : this.products;
+        console.log(this.filteredProducts);
+
+        this.filteredProducts.forEach(product => {
+          if(product.imageId!=null){
+            productService.getImageById(product.imageId).subscribe((param:any)=>
+            product.imageURL=URL.createObjectURL(param));
+            console.log(product.imageURL);
+          }
+        });
+        console.log("filteredProducts after image ",this.filteredProducts);
       });
+      
+      
       
       
   }

@@ -3,9 +3,6 @@
 html,
 body {
     font-family: 'Numans', sans-serif;
-}
-
-body {
     min-height: 100vh;
 }
 
@@ -14,4 +11,10 @@ body {
 }
 .nav-item { 
   cursor: pointer;
+}
+.fixed-top{
+  position: relative;
+}
+.navbar{
+  margin-bottom: 20px;
 }

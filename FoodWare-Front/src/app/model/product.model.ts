@@ -7,18 +7,18 @@ export class Product{
     public price: number;
     public description : string;
     public categoryId: number;
-    public imageURL : string;
+    public imageId:number;
     public isExtra : boolean;
   
   
     constructor(id?: number, name?: string,  price?: number,description?: string,
-      categoryId?:number,imageURL?:string, isExtra?:boolean){
+      categoryId?:number,imageId?:number, isExtra?:boolean){
           this.id = id!;
           this.name = name!;
           this.price = price!;
           this.description = description!;
           this.categoryId = categoryId!;
-          this.imageURL = imageURL!;
+          this.imageId = imageId!;
           this.isExtra = isExtra!;
     }
   
