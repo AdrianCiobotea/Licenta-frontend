@@ -1,12 +1,18 @@
 <div *ngIf="product.name" class="card">
-    <img *ngIf="product.imageURL" class="card-img-top" [src]="product.imageURL" alt="{{ product.name }}">
-    <div class="card-body">
-      <h4 class="card-title">{{ product.name }}</h4>
-      <p class="card-text">{{ product.price | currency:'USD':true }}</p>
-      <p class="card-text">{{ product.description }}</p>
+  <div class="row">
+    <div class="image col-6">
+      <img *ngIf="product.imageId" class="card-img-top" src="http://localhost:8084/product/image/{{product.id}}" alt="{{ product.name }}">
     </div>
+      
+      <div class="card-body col-6">
+        <h4 class="card-title">{{ product.name }}</h4>
+        <p class="card-text">Price: {{ product.price | currency:'USD':true }}</p>
+        <p class="card-text">Description: {{ product.description }}</p>
+      </div>
+  </div>
+  
     <div class="card-footer">
-      <a *ngIf="showActions" href="#" class="btn btn-primary btn-block">Add to Cart</a>
+      <a *ngIf="showActions" href="#" class="btn btn-primary ">Add to Cart</a>
     </div>
   </div>    
   

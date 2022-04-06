@@ -1,4 +1,23 @@
-<div class="sticky-top">
+<div class="row sticky-top">
+  <div class="col-6">
+    <div class="list-group">
+        <a
+          class="list-group-item list-group-item-action"
+          [class.active]="!group"
+          routerLink="/"
+          >All category groups</a>
+        <a 
+          *ngFor="let g of groups$ | async" 
+          routerLink="/"
+          [queryParams]="{ group: g.id }"
+          class="list-group-item list-group-item-action"
+          [class.active]="group === g.id"
+          >
+          {{ g.name }}
+        </a>
+      </div>
+  </div>
+  <div class="col-6">
     <div class="list-group">
         <a
           class="list-group-item list-group-item-action"
@@ -16,4 +35,9 @@
         </a>
       </div>
   </div>
+</div>
+
+
+  
+  
   

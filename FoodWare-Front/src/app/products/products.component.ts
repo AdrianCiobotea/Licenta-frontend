@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../model/product.model';
-import { ProductService } from '../product.service';
 import { switchMap } from 'rxjs';
-import { Ng2SearchPipe } from 'ng2-search-filter';
+import { ProductService } from '../service/product/product.service';
+import { Category } from '../model/category.model';
+import { CategoryService } from '../service/category/category.service';
 
 @Component({
   selector: 'products',
@@ -13,13 +14,24 @@ import { Ng2SearchPipe } from 'ng2-search-filter';
 export class ProductsComponent {
 
   products: Product[] = [];
+  categories: Category[] = [];
+  filteredCategories: Category[] = [];
   filteredProducts: Product[] = [];
   categoryId!: number;
+  groupId!:number;
 
   constructor(
     route: ActivatedRoute,
-    productService: ProductService
+    productService: ProductService,
+    categoryService: CategoryService
   ) {
+    categoryService.getCategories().pipe(switchMap((categories:any)=>{
+      this.categories = categories;
+      return route.queryParamMap;
+    })).subscribe((params:any)=>{
+      this.groupId = params.get('group');
+      this.filteredCategories = (this.groupId) ? this.categories.filter(c => c.groupId == this.groupId) : this.categories;
+    });
     productService
       .getAll().pipe(switchMap((products: any) => {
         this.products = products;
@@ -28,19 +40,6 @@ export class ProductsComponent {
         this.categoryId = params.get('category');
         this.filteredProducts = (this.categoryId) ? this.products.filter(p => p.categoryId == this.categoryId) : this.products;
         console.log(this.filteredProducts);
-
-        this.filteredProducts.forEach(product => {
-          if(product.imageId!=null){
-            productService.getImageById(product.imageId).subscribe((param:any)=>
-            product.imageURL=URL.createObjectURL(param));
-            console.log(product.imageURL);
-          }
-        });
-        console.log("filteredProducts after image ",this.filteredProducts);
-      });
-      
-      
-      
-      
+      });   
   }
 }

@@ -1,0 +1,5 @@
+adauga mai multi parametrii pe query: ?group=1?category=2
+
+cum fac gruparea pe baza grupului
+
+cum pun grupurile si categoriile mai in stanga?

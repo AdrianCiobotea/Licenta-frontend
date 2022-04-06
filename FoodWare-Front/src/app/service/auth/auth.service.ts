@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map } from 'rxjs';
+import { AppConstants } from 'src/app/constants/app.constants';
+import { User } from 'src/app/model/user.model';
 import { environment } from 'src/environments/environment';
-import { AppConstants } from '../constants/app.constants';
-import { User } from '../model/user.model';
+
 
 @Injectable({
   providedIn: 'root'
