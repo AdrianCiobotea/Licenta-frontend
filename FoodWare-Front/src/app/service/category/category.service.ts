@@ -13,4 +13,7 @@ export class CategoryService {
   getCategories(): Observable<Category[]> { 
     return this.http.get<Category[]>('http://localhost:8084/category');
   }
+  getCategoriesByGroupId(groupId: number): Observable<Category[]> { 
+    return this.http.get<Category[]>('http://localhost:8084/category?groupId='+groupId);
+  }
 }

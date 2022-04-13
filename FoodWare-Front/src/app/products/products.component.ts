@@ -4,7 +4,6 @@ import { Product } from '../model/product.model';
 import { switchMap } from 'rxjs';
 import { ProductService } from '../service/product/product.service';
 import { Category } from '../model/category.model';
-import { CategoryService } from '../service/category/category.service';
 
 @Component({
   selector: 'products',
@@ -22,24 +21,39 @@ export class ProductsComponent {
 
   constructor(
     route: ActivatedRoute,
-    productService: ProductService,
-    categoryService: CategoryService
+    productService: ProductService
   ) {
-    categoryService.getCategories().pipe(switchMap((categories:any)=>{
-      this.categories = categories;
-      return route.queryParamMap;
-    })).subscribe((params:any)=>{
-      this.groupId = params.get('group');
-      this.filteredCategories = (this.groupId) ? this.categories.filter(c => c.groupId == this.groupId) : this.categories;
-    });
-    productService
-      .getAll().pipe(switchMap((products: any) => {
-        this.products = products;
-        return route.queryParamMap;
-      })).subscribe((params:any) => {
-        this.categoryId = params.get('category');
-        this.filteredProducts = (this.categoryId) ? this.products.filter(p => p.categoryId == this.categoryId) : this.products;
-        console.log(this.filteredProducts);
-      });   
+    route.queryParams.subscribe(params => {
+      console.log(params);
+      if(params['group']){
+        productService.getByGroupId(params['group']).pipe(switchMap((products:any)=>{
+          this.products = products;
+          return route.queryParamMap;
+        })).subscribe((params:any) => {
+          this.categoryId = params.get('category');
+          this.filteredProducts = (this.categoryId) ? this.products.filter(p => p.categoryId == this.categoryId) : this.products;
+          console.log(this.filteredProducts);
+        });   
+      } else {
+        productService.getAll().pipe(switchMap((products:any)=>{
+          this.products = products;
+          return route.queryParamMap;
+        })).subscribe((params:any) => {
+          this.categoryId = params.get('category');
+          this.filteredProducts = (this.categoryId) ? this.products.filter(p => p.categoryId == this.categoryId) : this.products;
+          console.log(this.filteredProducts);
+        });  
+      }
+    })
+    
+    // productService
+    //   .getAll().pipe(switchMap((products: any) => {
+    //     this.products = products;
+    //     return route.queryParamMap;
+    //   })).subscribe((params:any) => {
+    //     this.categoryId = params.get('category');
+    //     this.filteredProducts = (this.categoryId) ? this.products.filter(p => p.categoryId == this.categoryId) : this.products;
+    //     console.log(this.filteredProducts);
+    //   });   
   }
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Category } from 'src/app/model/category.model';
 import { Group } from 'src/app/model/group.model';
@@ -12,17 +13,26 @@ import { GroupService } from 'src/app/service/group/group.service';
 })
 export class ProductFilterComponent implements OnInit {
 
-  categories$ : Observable<Category[]>;
+  categories$!: Observable<Category[]>;
   groups$ : Observable<Group[]>;
-  @Input('category') category: any;
-  @Input('group') group :any;
+  @Input('categoryId') categoryId: any;
+  @Input('groupId') groupId :any = 0;
 
-  constructor(categoryService: CategoryService,groupService: GroupService) {
-    this.categories$ = categoryService.getCategories();
-    categoryService.getCategories().subscribe(result => {
-      console.log('#### result', result);
+  constructor(categoryService: CategoryService,groupService: GroupService, route: ActivatedRoute) {
+    route.queryParams.subscribe(params => {
+      if(params['group']){
+        if(params['category'])
+        {
+          this.categoryId=params['category'];
+        }
+        this.groupId = params['group'];
+        this.categories$ = categoryService.getCategoriesByGroupId(params['group']);
+      } else {
+        this.groupId = 0;
+      }
     });
     this.groups$ = groupService.getGroups();
+    
   }
 
   ngOnInit(): void {

@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ProductService {
 
   constructor(private http:HttpClient) { }
-  getAll() { 
+getAll() { 
     return this.http.get('http://localhost:8084/product');
 }
 getImageById(id:number){
@@ -17,8 +17,12 @@ create(product: any) {
   return this.http.post('http://localhost:8084/product/insert',JSON.stringify(product),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })});
 }
 
-get(productId : number) { 
-  return this.http.get('http://localhost:8084/product');
+getByGroupId(groupId : number) { 
+  return this.http.get('http://localhost:8084/product?groupId='+groupId);
+}
+
+getByCategoryId(categoryId : number) { 
+  return this.http.get('http://localhost:8084/product?categoryId='+categoryId);
 }
 
 update(productId: number, product: any) { 

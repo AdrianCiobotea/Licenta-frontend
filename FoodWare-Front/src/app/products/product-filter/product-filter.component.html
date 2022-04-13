@@ -3,7 +3,7 @@
     <div class="list-group">
         <a
           class="list-group-item list-group-item-action"
-          [class.active]="!group"
+          [class.active]="!groupId"
           routerLink="/"
           >All category groups</a>
         <a 
@@ -11,7 +11,7 @@
           routerLink="/"
           [queryParams]="{ group: g.id }"
           class="list-group-item list-group-item-action"
-          [class.active]="group === g.id"
+          [class.active]="groupId == g.id"
           >
           {{ g.name }}
         </a>
@@ -21,18 +21,22 @@
     <div class="list-group" >
         <a
           class="list-group-item list-group-item-action"
-          [class.active]="!category"
+          [class.active]="!categoryId"
           routerLink="/"
+          *ngIf = "groupId"
+          [queryParams]="{group:groupId}"
           >All Categories</a>
-        <a 
-          *ngFor="let c of categories$ | async" 
-          routerLink="/"
-          [queryParams]="{ category: c.id }"
-          class="list-group-item list-group-item-action"
-          [class.active]="category === c.id"
-          >
-          {{ c.name }}
-        </a>
+          <ng-container *ngIf = "groupId">
+            <a *ngFor="let c of categories$ | async" 
+            routerLink="/"
+            [queryParams]="{ group: c.groupId,category: c.id }"
+            class="list-group-item list-group-item-action"
+            [class.active]="categoryId == c.id"
+            >
+            {{ c.name }}
+          </a>
+          </ng-container>
+       
       </div>
   </div>
 </div>
