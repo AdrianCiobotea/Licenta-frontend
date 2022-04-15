@@ -46,14 +46,5 @@ export class ProductsComponent {
       }
     })
     
-    // productService
-    //   .getAll().pipe(switchMap((products: any) => {
-    //     this.products = products;
-    //     return route.queryParamMap;
-    //   })).subscribe((params:any) => {
-    //     this.categoryId = params.get('category');
-    //     this.filteredProducts = (this.categoryId) ? this.products.filter(p => p.categoryId == this.categoryId) : this.products;
-    //     console.log(this.filteredProducts);
-    //   });   
   }
 }

@@ -17,6 +17,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { CategoryService } from './service/category/category.service';
 import { ProductService } from './service/product/product.service';
 import { AuthService } from './service/auth/auth.service';
+import { ShoppingCartService } from './service/shopping-cart/shopping-cart.service';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { AuthService } from './service/auth/auth.service';
   providers: [
     AuthService,
     CategoryService,
-    ProductService
+    ProductService,
+    ShoppingCartService
   ],
   bootstrap: [AppComponent]
 })
