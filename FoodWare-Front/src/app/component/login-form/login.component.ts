@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, NgModule, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { User } from '../model/user.model';
-import { AuthService } from '../service/auth/auth.service';
+import { User } from '../../model/user.model';
+import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
   selector: 'login-form',

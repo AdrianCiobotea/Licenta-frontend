@@ -1,5 +1,3 @@
-import { Category } from "./category.model";
-
 export class Product {
 
   public id: number;

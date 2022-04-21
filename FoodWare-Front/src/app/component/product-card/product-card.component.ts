@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Product } from '../model/product.model';
-import { ShoppingCart } from '../model/shopping-cart.model';
-import { ShoppingCartService } from '../service/shopping-cart/shopping-cart.service';
+import { Product } from '../../model/product.model';
+import { ShoppingCart } from '../../model/shopping-cart.model';
+import { ShoppingCartService } from '../../service/shopping-cart/shopping-cart.service';
 
 @Component({
   selector: 'product-card',
@@ -16,12 +16,10 @@ export class ProductCardComponent {
   constructor(private cartService: ShoppingCartService) { }
 
   addToCart(product: Product) {
+    this.cartService.addToCart(product);
 
-    let cartId = localStorage.getItem('cartId');
-    if (!cartId) {
-      //this.shoppingCart.initiatorId = Number(sessionStorage.getItem("userId"));
-      this.cartService.create(this.shoppingCart).subscribe((result: any) => {
-        localStorage.setItem('cartId', result['id']);
+
+    
 
         //Add product to cart
       });
