@@ -17,7 +17,8 @@ import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.c
 import { CategoryService } from './service/category/category.service';
 import { ProductService } from './service/product/product.service';
 import { AuthService } from './service/auth/auth.service';
-import { ShoppingCartService } from './service/shopping-cart/shopping-cart.service';
+import { OrderService } from './service/order/order.service';
+import { SubOrderService } from './service/sub-order/sub-order.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,6 @@ import { ShoppingCartService } from './service/shopping-cart/shopping-cart.servi
     ProductCardComponent,
     ProductFilterComponent,
     OrderByPipe,
-    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +59,8 @@ import { ShoppingCartService } from './service/shopping-cart/shopping-cart.servi
     AuthService,
     CategoryService,
     ProductService,
-    ShoppingCartService
+    OrderService,
+    SubOrderService
   ],
   bootstrap: [AppComponent]
 })

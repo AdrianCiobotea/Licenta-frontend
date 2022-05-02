@@ -17,6 +17,10 @@ create(product: any) {
   return this.http.post('http://localhost:8084/product/insert',JSON.stringify(product),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })});
 }
 
+getById(productId : number) { 
+  return this.http.get('http://localhost:8084/product/'+productId);
+}
+
 getByGroupId(groupId : number) { 
   return this.http.get('http://localhost:8084/product?groupId='+groupId);
 }

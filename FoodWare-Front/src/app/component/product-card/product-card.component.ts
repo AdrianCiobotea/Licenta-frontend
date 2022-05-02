@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { SubOrder } from 'src/app/model/sub-order.model';
+import { SubOrderService } from 'src/app/service/sub-order/sub-order.service';
 import { Product } from '../../model/product.model';
-import { ShoppingCart } from '../../model/shopping-cart.model';
-import { ShoppingCartService } from '../../service/shopping-cart/shopping-cart.service';
 
 @Component({
   selector: 'product-card',
@@ -9,22 +9,19 @@ import { ShoppingCartService } from '../../service/shopping-cart/shopping-cart.s
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent {
-  shoppingCart !: ShoppingCart;
-  @Input() product!: Product;
+  @Input('product') product!: Product;
   @Input('show-actions') showActions = true;
+  @Input('subOrder') subOrder!: SubOrder;
 
-  constructor(private cartService: ShoppingCartService) { }
+  constructor(private subOrderService: SubOrderService) { }
 
   addToCart(product: Product) {
-    this.cartService.addToCart(product);
-
-
-    
-
-        //Add product to cart
-      });
-    } else {
-      //Add product to cart
-    }
+    this.subOrderService.addToCart(product.id);
+  }
+  getQuantity(){
+    let item :any = JSON.parse(localStorage.getItem(this.product.id.toString())|| '{}');
+    console.log(item);
+    console.log(item['quantity']);
+    return item ? item['quantity'] : 0;
   }
 }
