@@ -15,13 +15,21 @@ export class ProductCardComponent {
 
   constructor(private subOrderService: SubOrderService) { }
 
-  addToCart(product: Product) {
-    this.subOrderService.addToCart(product.id);
+  addToCart() {
+    this.subOrderService.addToCart(this.product.id);
+  }
+  removeFromCart(){
+    this.subOrderService.removeFromCart(this.product.id);
   }
   getQuantity(){
-    let item :any = JSON.parse(localStorage.getItem(this.product.id.toString())|| '{}');
-    console.log(item);
-    console.log(item['quantity']);
+    let item :any = JSON.parse(localStorage.getItem(this.product.id.toString()) || '{}');
     return item ? item['quantity'] : 0;
+  }
+  isProductInLocalStorage(){
+    if(localStorage.getItem(this.product.id.toString())!=null){
+      return false;
+    }else{
+      return true;
+    }
   }
 }

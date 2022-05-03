@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { OrderItem } from 'src/app/model/orderItem.model';
 import { SubOrder } from 'src/app/model/sub-order.model';
 
@@ -7,47 +8,60 @@ import { SubOrder } from 'src/app/model/sub-order.model';
   providedIn: 'root'
 })
 export class SubOrderService {
+
   constructor(private http: HttpClient) {
   }
   public create(SubOrder: any) {
     return this.http.post('http://localhost:8082/subOrder/insert', JSON.stringify(SubOrder), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
 
-  public async getSubOrder() {
-    let subOrderId = await this.getOrCreateSubOrderId();
-    return this.http.get('http://localhost:8082/subOrder/' + subOrderId);
+  public async getSubOrder() : Promise<Observable<SubOrder>> {
+    return JSON.parse(localStorage.getItem("subOrder") || "{}");
   }
 
-  public async getOrCreateSubOrderId() : Promise<string>{
-    let subOrderId = localStorage.getItem('subOrderId');
+  public async getOrCreateSubOrderId(): Promise<number> {
+    let subOrder :any = localStorage.getItem('subOrder')! || '{}';
 
-    if (subOrderId) return subOrderId;
-    
-      //this.Order.initiatorId = Number(sessionStorage.getItem("userId"));
-      let result : any = await this.create(new SubOrder(1)); //TODO use UserId insted of 1
-      localStorage.setItem('subOrderId', result['id']);
-      return result['id'];
+    if (subOrder['id']) {
+      return subOrder['id'];
+    }else{
+      let subOrder: any = new SubOrder(1); //TODO use UserId insted of 1
+      localStorage.setItem('subOrder', JSON.stringify(subOrder) );
+      return subOrder['id'];
+    }
+   
   }
 
   async addToCart(productId: number) {
-//     let orderId = await this.orderService.getOrCreateOrderId();
-//     let subOrderId = await this.getOrCreateSubOrderId();
-//     let product$ = this.orderItemService.getById(orderItem.id);
-//     orderItem$.subscribe(orderItem => {
-//       if (typeof orderItem === "object") {
-// orderItem.
-//       }
-//     });
-if(localStorage.getItem(productId.toString())!=null){
-let orderItem: any = JSON.parse(localStorage.getItem(productId.toString()) || '{}');
-orderItem["quantity"]+=1;
-localStorage.setItem(productId.toString(),JSON.stringify(orderItem));
-}else{
-  let orderItem = new OrderItem(undefined,1,undefined,productId,undefined);
-  localStorage.setItem(productId.toString(),JSON.stringify(orderItem));
-}
-
-
+    //     let orderId = await this.orderService.getOrCreateOrderId();
+    //     let subOrderId = await this.getOrCreateSubOrderId();
+    //     let product$ = this.orderItemService.getById(orderItem.id);
+    //     orderItem$.subscribe(orderItem => {
+    //       if (typeof orderItem === "object") {
+    // orderItem.
+    //       }
+    //     });
+      let subOrderId = await this.getOrCreateSubOrderId();
+      if (localStorage.getItem(productId.toString()) != null) {
+        let orderItem: any = JSON.parse(localStorage.getItem(productId.toString()) || '{}');
+        orderItem["quantity"] += 1;
+        localStorage.setItem(productId.toString(), JSON.stringify(orderItem));
+      } else {
+        let orderItem = new OrderItem(undefined, 1, subOrderId, productId, undefined);
+        localStorage.setItem(productId.toString(), JSON.stringify(orderItem));
+      }
   }
-  
+
+  removeFromCart(productId: number) {
+    let orderItem: any = JSON.parse(localStorage.getItem(productId.toString()) || '{}');
+    if(orderItem["quantity"]!=1){
+      orderItem["quantity"] -= 1;
+      localStorage.setItem(productId.toString(), JSON.stringify(orderItem));
+    }
+    else{
+      localStorage.removeItem(productId.toString());
+    }
+     
+  }
+
 }

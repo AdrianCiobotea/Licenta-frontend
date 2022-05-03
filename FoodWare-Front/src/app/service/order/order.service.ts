@@ -32,17 +32,6 @@ export class OrderService {
     return result['id'];
   }
 
-  private async getOrCreateSubOrderId() {
-    let subOrderId = Number(localStorage.getItem('subOrderId'));
-
-    if (subOrderId) return subOrderId;
-
-    //this.Order.initiatorId = Number(sessionStorage.getItem("userId"));
-    let result: any = await this.create(new Order(undefined, 1)); //TODO use UserId insted of 1
-    localStorage.setItem('cartId', result['id']);
-    return result['id'];
-  }
-
 
  
 }

@@ -30,7 +30,6 @@ export class ProductsComponent implements OnInit, OnDestroy{
   ) {
     
     route.queryParams.subscribe(params => {
-      console.log(params);
       if(params['group']){
         productService.getByGroupId(params['group']).pipe(switchMap((products:any)=>{
           this.products = products;
@@ -38,7 +37,6 @@ export class ProductsComponent implements OnInit, OnDestroy{
         })).subscribe((params:any) => {
           this.categoryId = params.get('category');
           this.filteredProducts = (this.categoryId) ? this.products.filter(p => p.categoryId == this.categoryId) : this.products;
-          console.log(this.filteredProducts);
         });   
       } else {
         productService.getAll().pipe(switchMap((products:any)=>{
@@ -47,7 +45,6 @@ export class ProductsComponent implements OnInit, OnDestroy{
         })).subscribe((params:any) => {
           this.categoryId = params.get('category');
           this.filteredProducts = (this.categoryId) ? this.products.filter(p => p.categoryId == this.categoryId) : this.products;
-          console.log(this.filteredProducts);
         });  
       }
     })
