@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SubOrder } from 'src/app/model/sub-order.model';
+import { ShoppingCartService } from 'src/app/service/shoppingCart/shopping-cart.service';
 import { SubOrderService } from 'src/app/service/sub-order/sub-order.service';
 import { Product } from '../../model/product.model';
 
@@ -13,17 +14,17 @@ export class ProductCardComponent {
   @Input('show-actions') showActions = true;
   @Input('subOrder') subOrder!: SubOrder;
 
-  constructor(private subOrderService: SubOrderService) { }
+  constructor(private shoppingCartService: ShoppingCartService) { }
 
   addToCart() {
-    this.subOrderService.addToCart(this.product.id);
+    this.shoppingCartService.addToCart(this.product.id);
   }
   removeFromCart(){
-    this.subOrderService.removeFromCart(this.product.id);
+    this.shoppingCartService.removeFromCart(this.product.id);
   }
   getQuantity(){
-    let item :any = JSON.parse(localStorage.getItem(this.product.id.toString()) || '{}');
-    return item ? item['quantity'] : 0;
+    let cart :any = JSON.parse(localStorage.getItem("cart") || '{}');
+    return cart ? cart['totalQuantity'] : 0;
   }
   isProductInLocalStorage(){
     if(localStorage.getItem(this.product.id.toString())!=null){

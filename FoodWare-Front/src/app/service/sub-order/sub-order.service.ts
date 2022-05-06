@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { OrderItem } from 'src/app/model/orderItem.model';
+import { ShoppingCart } from 'src/app/model/shoppingCart.model';
 import { SubOrder } from 'src/app/model/sub-order.model';
 
 @Injectable({
@@ -32,36 +33,6 @@ export class SubOrderService {
    
   }
 
-  async addToCart(productId: number) {
-    //     let orderId = await this.orderService.getOrCreateOrderId();
-    //     let subOrderId = await this.getOrCreateSubOrderId();
-    //     let product$ = this.orderItemService.getById(orderItem.id);
-    //     orderItem$.subscribe(orderItem => {
-    //       if (typeof orderItem === "object") {
-    // orderItem.
-    //       }
-    //     });
-      let subOrderId = await this.getOrCreateSubOrderId();
-      if (localStorage.getItem(productId.toString()) != null) {
-        let orderItem: any = JSON.parse(localStorage.getItem(productId.toString()) || '{}');
-        orderItem["quantity"] += 1;
-        localStorage.setItem(productId.toString(), JSON.stringify(orderItem));
-      } else {
-        let orderItem = new OrderItem(undefined, 1, subOrderId, productId, undefined);
-        localStorage.setItem(productId.toString(), JSON.stringify(orderItem));
-      }
-  }
-
-  removeFromCart(productId: number) {
-    let orderItem: any = JSON.parse(localStorage.getItem(productId.toString()) || '{}');
-    if(orderItem["quantity"]!=1){
-      orderItem["quantity"] -= 1;
-      localStorage.setItem(productId.toString(), JSON.stringify(orderItem));
-    }
-    else{
-      localStorage.removeItem(productId.toString());
-    }
-     
-  }
+  
 
 }

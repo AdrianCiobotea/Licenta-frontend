@@ -5,7 +5,6 @@ import { Subscription, switchMap } from 'rxjs';
 import { ProductService } from '../service/product/product.service';
 import { Category } from '../model/category.model';
 import { SubOrderService } from '../service/sub-order/sub-order.service';
-import { Order } from '../model/order.model';
 
 @Component({
   selector: 'products',
@@ -53,8 +52,8 @@ export class ProductsComponent implements OnInit, OnDestroy{
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-  async ngOnInit() {
-  this.subscription = ((await this.subOrderService.getSubOrder()).subscribe(subOrder => this.subOrder = subOrder)) ;
+   ngOnInit() {
+  
   }
 
 }
