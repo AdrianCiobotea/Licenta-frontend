@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login-form/login.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
@@ -13,12 +12,13 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
 import { ProductCardComponent } from './component/product-card/product-card.component';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
 import { CategoryService } from './service/category/category.service';
 import { ProductService } from './service/product/product.service';
 import { AuthService } from './service/auth/auth.service';
 import { OrderService } from './service/order/order.service';
 import { SubOrderService } from './service/sub-order/sub-order.service';
+import { ModalComponent } from './component/modal/modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import { SubOrderService } from './service/sub-order/sub-order.service';
     ProductCardComponent,
     ProductFilterComponent,
     OrderByPipe,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,7 +54,8 @@ import { SubOrderService } from './service/sub-order/sub-order.service';
       //   path: 'admin/products', 
       //   component: AdminProductsComponent
       // },
-    ])    
+    ]),
+    NgbModule    
   ],
   providers: [
     AuthService,
