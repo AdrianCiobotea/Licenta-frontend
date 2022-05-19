@@ -1,3 +1,5 @@
+import { Extra } from "./extra.model";
+
 export class OrderItem {
 
     public id: number;
@@ -5,6 +7,7 @@ export class OrderItem {
     public status_id: number;
     public product_id: number;
     public sub_order_id: number;
+    public extra:Extra[] = [];
 
 
     constructor(id?: number, quantity?: number, sub_order_id?: number, product_id?: number, status_id?: number) {

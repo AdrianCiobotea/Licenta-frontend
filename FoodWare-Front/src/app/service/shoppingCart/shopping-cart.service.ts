@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as _ from 'lodash';
 import { BehaviorSubject } from 'rxjs';
 import { OrderItem } from 'src/app/model/orderItem.model';
 import { ShoppingCart } from 'src/app/model/shoppingCart.model';
@@ -17,46 +18,31 @@ export class ShoppingCartService {
     this.cartSize$.next(cart.totalQuantity);
   }
 
-  async addToCart(productId: number) {
-    //     let orderId = await this.orderService.getOrCreateOrderId();
-    //     let subOrderId = await this.getOrCreateSubOrderId();
-    //     let product$ = this.orderItemService.getById(orderItem.id);
-    //     orderItem$.subscribe(orderItem => {
-    //       if (typeof orderItem === "object") {
-    // orderItem.
-    //       }
-    //     });
+  async addToCart(orderItem:OrderItem) {
 
     let cartString = localStorage.getItem("cart");
     let cart: ShoppingCart = JSON.parse(cartString || "{}");
     localStorage.removeItem("cart");
-      
+
     if (!cart) {
       cart = new ShoppingCart(1);
     }
     const items: OrderItem[] = cart.items || [];
-    const newOrderItem = new OrderItem(undefined, 1, cart.id, productId, undefined);
-    items.push(newOrderItem);
-    
-cart.totalQuantity+=1;
-console.log(cart.totalQuantity);
+    items.push(orderItem);
+
+    cart.totalQuantity = 0;
+    items.forEach(element => {
+      cart.totalQuantity += element.quantity;
+    })
+    console.log(cart.totalQuantity);
     console.log('#### items', items);
     cart.items = items;
 
     localStorage.setItem("cart", JSON.stringify(cart));
     console.log('#### items2', cart);
     this.cartSize$.next(cart.totalQuantity);
-    // let scartString = localStorage.getItem("scart");
-    // let scart: string[] = JSON.parse(scartString || "{}");
-    // if (scart) {
-    //   scart.push("da");
-    // } else {
-    //   scart = [];
-    //   scart.push("da");
-    // }
-    // localStorage.setItem("scart", JSON.stringify(scart));
-
   }
+
   getOrCreateCartId() {
     let cart: any = localStorage.getItem('cart')! || '{}';
 

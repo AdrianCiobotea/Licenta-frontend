@@ -1,5 +1,4 @@
 <ng-template #content let-c="close" let-d="dismiss" class="template-modal">
-        <form>
             <div class="modal-header">
                 <div class="col">
                     <div class="row">
@@ -17,8 +16,8 @@
             <div class="modal-body">
                 <p>Choose Extra:</p>
                 
-                    <ul *ngFor="let extra of extraProducts">
-                        <input type="radio" name="name">{{extra.name}} {{extra.price | currency:'RON':"symbol"}} <br>
+                    <ul *ngFor="let extraProduct of extra">
+                        <input class ="form-check-input" type="checkbox" id="extra" name="extra" [(ngModel)]="extra">{{extraProduct.name}} {{extraProduct.price | currency:'RON':"symbol"}} <br>
                     </ul>
         
             </div>
@@ -26,23 +25,21 @@
                 <div class="col">
                     <div class="row no-gutters">
                         <div class="col-2">
-                          <button (click)="removeFromCart()" class="btn btn-secondary btn-block">-</button>
+                          <button (click)="decreaseQuantity()" class="btn btn-secondary btn-block">-</button>
                         </div>
                         <div class="col text-center">
-                          {{ getQuantity() }} in cart
+                          Quantity: {{ orderItem.quantity }} 
                         </div>
                         <div class="col-2">
-                          <button (click)="addToCart()" class="btn btn-secondary btn-block">+</button>
+                          <button (click)="increaseQuantity()" class="btn btn-secondary btn-block">+</button>
                         </div>
                       </div>
                       <div class="row">
-                          <input type="submit" value="Add to cart">
-                        <button type="button" class="btn btn-outline-dark " (click)="c('Save click')">Add to cart</button>
+                        <button type="button" class="btn btn-outline-dark " (click)="addToCart()">Add to cart</button>
                       </div>
                     
                 </div>   
-            </div>
-        </form>    
+            </div>   
 </ng-template>
 
 <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add to cart</button>

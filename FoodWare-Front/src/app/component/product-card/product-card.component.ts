@@ -13,14 +13,8 @@ export class ProductCardComponent {
   @Input('show-actions') showActions = true;
   @Input('subOrder') subOrder!: SubOrder;
 
-  constructor(private shoppingCartService: ShoppingCartService) { }
+  constructor() { }
 
-  addToCart() {
-    this.shoppingCartService.addToCart(this.product.id);
-  }
-  removeFromCart(){
-    this.shoppingCartService.removeFromCart(this.product.id);
-  }
   getQuantity(){
     let cart :any = JSON.parse(localStorage.getItem("cart") || '{}');
     return cart ? cart['totalQuantity'] : 0;
