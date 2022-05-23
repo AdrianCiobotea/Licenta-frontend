@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { Extra } from 'src/app/model/extra.model';
 import { OrderItem } from 'src/app/model/orderItem.model';
@@ -20,26 +21,53 @@ export class ModalComponent {
   @Input("extra") extra: Extra[] = [];
   @Input("orderItem")
   orderItem!: OrderItem;
-  constructor(config: NgbModalConfig, private modalService: NgbModal, private extraService: ExtraService, private shoppingCartService: ShoppingCartService) {
-  this.orderItem = new OrderItem();
-  this.orderItem.quantity=1;
+
+  form: FormGroup;
+
+
+  constructor(config: NgbModalConfig,
+    private modalService: NgbModal,
+    private extraService: ExtraService,
+    private shoppingCartService: ShoppingCartService,
+    private formBuilder: FormBuilder
+  ) {
+    this.form = this.formBuilder.group({
+      extras: new FormArray([])
+    });
+    this.orderItem = new OrderItem();
+    this.orderItem.quantity = 1;
+
+    
   }
 
-  getExtraProducts(categoryId: number) {
-    this.extraService.getExtrasByCategoryId(categoryId).subscribe(products => {
-      this.extra = products;
-    });
+ getExtraProducts(categoryId: number) {
+    return this.extraService.getExtrasByCategoryId(categoryId);
   }
+
+
   open(content: any) {
-    this.modalService.open(content);
-    this.getExtraProducts(this.product.categoryId);
+    if (this.extrasFormArray.length) {
+      this.form = this.formBuilder.group({
+        extras: new FormArray([])
+      });
+    }
+    this.getExtraProducts(this.product.categoryId).subscribe((result: any[]) => {
+      this.extra = result;
+      result.forEach(() => this.extrasFormArray.push(new FormControl(false)));
+      this.modalService.open(content);
+    });
+
   }
 
   addToCart() {
-    this.orderItem.extra = this.extra;
+    const selectedExtras = this.form.value['extras']
+    .map((checked: any, i: number) => checked ? this.extra[i] : null)
+    .filter((v: null) => v !== null);
+    console.log('### selected', selectedExtras);
+    this.orderItem.extra = selectedExtras;
     this.orderItem.product_id = this.product.id;
-      this.shoppingCartService.addToCart(this.orderItem);
-      this.modalService.dismissAll();
+    this.shoppingCartService.addToCart(this.orderItem);
+    this.modalService.dismissAll();
   }
   removeFromCart() {
     this.shoppingCartService.removeFromCart(this.product.id);
@@ -49,27 +77,23 @@ export class ModalComponent {
     return cart ? cart['totalQuantity'] : 0;
   }
   increaseQuantity() {
-    // let cart: ShoppingCart = JSON.parse(localStorage.getItem("cart") || '{}');
-    // let cartItems: OrderItem[] = cart['items'];
-    // cartItems.forEach(element => {
-    //   if (productId == element.product_id)
-    //     element.quantity += 1;
-    // });
-    // cart.items = cartItems;
-    // localStorage.setItem('cart', JSON.stringify(cart));
     this.orderItem.quantity++;
   }
   decreaseQuantity() {
-    // let cart: ShoppingCart = JSON.parse(localStorage.getItem("cart") || '{}');
-    // let cartItems: OrderItem[] = cart['items'];
-    // cartItems.forEach(element => {
-    //   if (productId == element.product_id)
-    //     element.quantity -= 1;
-    // });
-    // cart.items = cartItems;
-    // localStorage.setItem('cart', JSON.stringify(cart));
     this.orderItem.quantity--;
     console.log(this.orderItem);
-    
   }
+addCheckBoxesToForm(){
+}
+
+get extrasFormArray(){
+  return this.form.controls['extras'] as FormArray;
+}
+
+submit() {
+  const selectedExtras = this.form.value['extras']
+    .map((checked: any, i: string | number) => checked ? this.extra : null)
+    .filter((v: null) => v !== null);
+}
+
 }

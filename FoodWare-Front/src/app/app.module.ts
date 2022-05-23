@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login-form/login.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import {HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './component/home/home.component';
 import { ProductsComponent } from './products/products.component';
@@ -38,6 +38,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     Ng2SearchPipeModule,
     FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: ProductsComponent },
       { path: 'products', component: ProductsComponent },
