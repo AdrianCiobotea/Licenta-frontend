@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { OrderItem } from 'src/app/model/orderItem.model';
 import { ShoppingCart } from 'src/app/model/shoppingCart.model';
 
@@ -18,7 +18,7 @@ export class ShoppingCartService {
     this.cartSize$.next(cart.totalQuantity);
   }
 
-  async addToCart(orderItem:OrderItem) {
+  async addToCart(orderItem: OrderItem) {
 
     let cartString = localStorage.getItem("cart");
     let cart: ShoppingCart = JSON.parse(cartString || "{}");
@@ -70,4 +70,14 @@ export class ShoppingCartService {
     localStorage.setItem("cart", JSON.stringify(cart));
 
   }
+
+  getCart() {
+    let cart: ShoppingCart = JSON.parse(localStorage.getItem("cart") || "{}");
+    if (Object.keys(cart).length == 0) {
+      return null;
+    } else {
+      return of(cart);
+    }
+  }
+
 }

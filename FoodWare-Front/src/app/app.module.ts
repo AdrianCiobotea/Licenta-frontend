@@ -19,6 +19,7 @@ import { OrderService } from './service/order/order.service';
 import { SubOrderService } from './service/sub-order/sub-order.service';
 import { ModalComponent } from './component/modal/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     NavbarComponent,
     HomeComponent,
     ProductsComponent,
-    //ProductFormComponent,
+    ShoppingCartComponent,
     ProductCardComponent,
     ProductFilterComponent,
     OrderByPipe,
@@ -43,6 +44,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
       { path: '', component: ProductsComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'shopping-cart', component: ShoppingCartComponent },
       // { 
       //   path: 'admin/products/new', 
       //   component: ProductFormComponent
