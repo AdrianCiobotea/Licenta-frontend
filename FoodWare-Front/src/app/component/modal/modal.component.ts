@@ -46,6 +46,7 @@ export class ModalComponent {
 
 
   open(content: any) {
+    console.log(this.product);
     if (this.extrasFormArray.length) {
       this.form = this.formBuilder.group({
         extras: new FormArray([])
@@ -65,7 +66,7 @@ export class ModalComponent {
     .filter((v: null) => v !== null);
     console.log('### selected', selectedExtras);
     this.orderItem.extra = selectedExtras;
-    this.orderItem.product_id = this.product.id;
+    this.orderItem.product = this.product;
     this.shoppingCartService.addToCart(this.orderItem);
     this.modalService.dismissAll();
   }

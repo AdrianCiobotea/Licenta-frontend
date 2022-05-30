@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Login Page</title>
+    <title>Register Page</title>
 </head>
 
 <body>
@@ -10,10 +10,10 @@
         <div class="d-flex justify-content-center h-100">
             <div class="card">
                 <div class="card-header">
-                    <h3>Sign In</h3>
+                    <h3>Sign Up</h3>
                 </div>
                 <div class="card-body">
-                    <form #f="ngForm" (ngSubmit)="validateUser(f.value)">
+                    <form #f="ngForm" (ngSubmit)="registerUser(f.value)">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -32,21 +32,10 @@
                             </div>
                             <input type="password" name="password" class="form-control" placeholder="password" ngModel>
                         </div>
-                        <div *ngIf="invalidLogin" class="alert alert-danger">
-                            Invalid Email and/or password.
-                        </div>
                         <div class="form-group">
-                            <input type="submit" value="Login" class="btn login_btn btn-block">
+                            <input type="submit" value="Register" class="btn login_btn btn-block">
                         </div>
                     </form>
-                </div>
-                <div class="card-footer">
-                    <div class="d-flex justify-content-center links">
-                        Don't have an account?<a href="/register">Sign Up</a>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <a href="#">Forgot your password?</a>
-                    </div>
                 </div>
             </div>
         </div>

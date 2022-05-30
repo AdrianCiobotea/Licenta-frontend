@@ -11,20 +11,29 @@
         <div class="row">
           Description : {{product.description}}</div>
       </div>
-  
+
       <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
     </div>
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <div class="modal-body">
-        <p>Choose Extra:</p>
-        <div class="col">
-          <label formArrayName = "extras" *ngFor="let extraProduct of extrasFormArray.controls;let i=index">
-            <div class="row">
-              <input type="checkbox" [formControlName]="i">{{extra[i].name}} {{extra[i].price | currency:'RON':"symbol"}}
-            </div>
-          </label>
+      <table>
+        <div class="modal-body">
+          <p>Choose Extra:</p>
+          <tr>
+            <td>
+              <table>
+                <tr formArrayName="extras" *ngFor="let extraProduct of extrasFormArray.controls;let i=index">
+                  <td>
+                    <input type="checkbox" [formControlName]="i">{{extra[i].name}} {{extra[i].price |
+                    currency:'RON':"symbol"}}
+                  </td>
+                </tr>
+              </table>
+            </td>
+
+          </tr>
         </div>
-      </div>
+      </table>
+
       <div class="modal-footer">
         <div class="col">
           <div class="row no-gutters">
@@ -41,12 +50,12 @@
           <div class="row">
             <button type="button" class="btn btn-outline-dark " (click)="addToCart()">Add to cart</button>
           </div>
-  
+
         </div>
       </div>
     </form>
-  
+
   </ng-template>
-  
+
   <button class="btn btn-lg btn-outline-primary" (click)="open(content)">Add to cart</button>
 </table>

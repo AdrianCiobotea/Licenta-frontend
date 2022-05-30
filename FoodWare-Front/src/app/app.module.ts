@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login-form/login.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
-import {HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './component/home/home.component';
@@ -20,6 +20,8 @@ import { SubOrderService } from './service/sub-order/sub-order.service';
 import { ModalComponent } from './component/modal/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
+import { RegisterComponent } from './component/register-form/register.component';
+import { ShoppingCartItemComponent } from './component/shopping-cart-item/shopping-cart-item.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.c
     ProductFilterComponent,
     OrderByPipe,
     ModalComponent,
+    RegisterComponent,
+    ShoppingCartItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +48,7 @@ import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.c
       { path: '', component: ProductsComponent },
       { path: 'products', component: ProductsComponent },
       { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
       // { 
       //   path: 'admin/products/new', 
@@ -58,7 +63,7 @@ import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.c
       //   component: AdminProductsComponent
       // },
     ]),
-    NgbModule    
+    NgbModule
   ],
   providers: [
     AuthService,

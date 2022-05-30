@@ -10,24 +10,27 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthService {
 
-  constructor(private http:HttpClient) { }
 
- /*
-  login(credentials: any){
-    return this.http.post('http://localhost:8080/login',JSON.stringify(credentials),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })})
-    .pipe(
-      map((response: any) => {
-        console.log("map", response);
-      }),
-      catchError(e => {
-        console.log("the error", e);
-        return e;
-      })
-    )
-  };
-  */
-  validateLoginDetails(user: User) {
-    window.sessionStorage.setItem("userdetails",JSON.stringify(user));
-    return this.http.post(environment.rooturl + AppConstants.LOGIN_API_URL, { observe: 'response',withCredentials: true });
+  constructor(private http: HttpClient) { }
+
+  /*
+   login(credentials: any){
+     return this.http.post('http://localhost:8080/login',JSON.stringify(credentials),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })})
+     .pipe(
+       map((response: any) => {
+         console.log("map", response);
+       }),
+       catchError(e => {
+         console.log("the error", e);
+         return e;
+       })
+     )
+   };
+   */
+  validateLoginDetails(loginForm: any) {
+    return this.http.post("http://localhost:8085/user/login", JSON.stringify(loginForm), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
+  }
+  registerUser(registerForm: any) {
+    return this.http.post('http://localhost:8085/user/register', JSON.stringify(registerForm), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) });
   }
 }

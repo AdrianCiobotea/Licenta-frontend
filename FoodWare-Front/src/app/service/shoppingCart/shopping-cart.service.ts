@@ -58,7 +58,7 @@ export class ShoppingCartService {
   removeFromCart(productId: number) {
     let cart: ShoppingCart = JSON.parse(localStorage.getItem("cart") || "{}");
     cart.items.forEach((orderItem) => {
-      if (orderItem.product_id == productId) {
+      if (orderItem.product.id == productId) {
         if (orderItem.quantity > 1) {
           orderItem.quantity -= 1;
         } else {

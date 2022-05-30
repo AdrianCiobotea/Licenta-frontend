@@ -1,0 +1,21 @@
+<div class="col">{{item.product.name}}</div>
+<div class="col" *ngFor="let extraProduct of item.extra" colspan="2">
+    <div class="row">
+        {{extraProduct.name}}
+    </div>
+</div>
+<div class="col">
+    <div class="row-sm">
+        <button (click)="decreaseQuantity(item)" class="btn btn-secondary btn-block">-</button>
+        {{item.quantity}}
+        <button (click)="increaseQuantity(item)" class="btn btn-secondary btn-block">+</button>
+    </div>
+</div>
+<div class="col">
+     <button (click)="editOrderItem(item)" class="btn btn-secondary btn-block">Edit</button> 
+</div>
+<div class="col">
+    <button (click)="removeOrderItem(item)" class="btn btn-secondary btn-block">Remove from cart</button>
+</div>
+
+<div class="col">{{getOrderItemPrice(item) | currency:"RON"}}</div>
