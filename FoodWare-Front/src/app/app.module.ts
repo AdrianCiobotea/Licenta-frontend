@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login-form/login.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './component/home/home.component';
@@ -22,6 +22,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ShoppingCartComponent } from './component/shopping-cart/shopping-cart.component';
 import { RegisterComponent } from './component/register-form/register.component';
 import { ShoppingCartItemComponent } from './component/shopping-cart-item/shopping-cart-item.component';
+import { ModalShoppingCartComponent } from './component/modal-shopping-cart/modal-shopping-cart.component';
+import { AuthInterceptor } from './service/auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { ShoppingCartItemComponent } from './component/shopping-cart-item/shoppi
     ModalComponent,
     RegisterComponent,
     ShoppingCartItemComponent,
+    ModalShoppingCartComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,6 +69,11 @@ import { ShoppingCartItemComponent } from './component/shopping-cart-item/shoppi
     NgbModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
     AuthService,
     CategoryService,
     ProductService,

@@ -12,7 +12,8 @@
     </div>
 </div>
 <div class="col">
-     <button (click)="editOrderItem(item)" class="btn btn-secondary btn-block">Edit</button> 
+     <!-- <button (click)="editOrderItem(item)" class="btn btn-secondary btn-block">Edit</button>  -->
+     <modal-shopping-cart [orderItem]="item"></modal-shopping-cart>
 </div>
 <div class="col">
     <button (click)="removeOrderItem(item)" class="btn btn-secondary btn-block">Remove from cart</button>

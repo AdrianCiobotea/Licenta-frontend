@@ -1,0 +1,56 @@
+<table>
+    <ng-template #content let-c="close" let-d="dismiss" class="template-modal">
+        <div class="modal-header">
+            <div class="col">
+                <div class="row">
+                    <h4 class="modal-title" id="modal-basic-title">{{orderItem.product.name}}</h4>
+                </div>
+                <div class="row">
+                    Price : {{orderItem.product.price | currency:"RON":"symbol"}}
+                </div>
+                <div class="row">
+                    Description : {{orderItem.product.description}}</div>
+            </div>
+
+            <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+        </div>
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <table>
+                <div class="modal-body">
+                    <p>Choose Extra:</p>
+                    <tr>
+                        <td>
+                            <table>
+                                <tr formArrayName="extras"
+                                    *ngFor="let extraProduct of extrasFormArray.controls;let i=index">
+                                    <td>
+                                        <input type="checkbox" [formControlName]="i">{{extra[i].name}} {{extra[i].price
+                                        |
+                                        currency:'RON':"symbol"}}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+
+                    </tr>
+                </div>
+            </table>
+
+            <div class="modal-footer">
+                <div class="col">
+                    <div class="row no-gutters">
+
+                    </div>
+                    <div class="row">
+                        <button type="button" class="btn btn-outline-dark " (click)="saveChanges()">Save
+                            Changes</button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+    </ng-template>
+
+    <button class="btn btn-lg btn-secondary" (click)="open(content)">Edit</button>
+</table>
