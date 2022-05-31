@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { forEach } from 'lodash';
 import { Observable } from 'rxjs';
 import { OrderItem } from 'src/app/model/orderItem.model';
 import { Product } from 'src/app/model/product.model';
@@ -14,21 +13,26 @@ import { ShoppingCartService } from 'src/app/service/shoppingCart/shopping-cart.
 export class ShoppingCartComponent implements OnInit {
 
   cart$!: Observable<ShoppingCart> | null;
-  products!: Product[];
 
   constructor(private shoppingCartService: ShoppingCartService) { }
 
   async ngOnInit() {
     this.cart$ = await this.shoppingCartService.getCart();
+    this.cart$?.subscribe(cart=>{
+      console.log(cart.items);
+    })
   }
 
   getOrderItemPrice(orderItem: OrderItem) {
-    let totalPrice = orderItem.product.price;
-    orderItem.extra.forEach(extraProduct => {
-      totalPrice += extraProduct.price;
-    });
-    totalPrice *= orderItem.quantity;
-    return totalPrice;
+    if (orderItem != null) {
+      let totalPrice = orderItem.product.price;
+      orderItem.extra.forEach(extraProduct => {
+        totalPrice += extraProduct.price;
+      });
+      totalPrice *= orderItem.quantity;
+      return totalPrice;
+    }
+    return 0;
   }
 
 

@@ -12,36 +12,28 @@ import { Product } from 'src/app/model/product.model';
 export class ShoppingCartItemComponent {
 
   @Input("item") item!: OrderItem;
-  @Input("cart") cart$!: Observable<ShoppingCart> | null;
+  @Input("cart") cart!: ShoppingCart;
   constructor() { }
 
 
   increaseQuantity(item: OrderItem) {
-    if (this.cart$ != null) {
-      this.cart$.subscribe((cart: ShoppingCart) => {
-        let product = cart.items.find(shoppingCartProduct => shoppingCartProduct.product.id == item.product.id);
-        if (product != undefined) {
-          product.quantity += 1;
-          cart.totalQuantity += 1;
-        }
-        localStorage.setItem("cart", JSON.stringify(cart));
-      });
+    let product = this.cart.items.find(shoppingCartProduct => shoppingCartProduct.product.id == item.product.id);
+    if (product != undefined) {
+      product.quantity += 1;
+      this.cart.totalQuantity += 1;
     }
+    localStorage.setItem("cart", JSON.stringify(this.cart));
   }
   decreaseQuantity(item: OrderItem) {
-    if (this.cart$ != null) {
-      this.cart$.subscribe((cart: ShoppingCart) => {
-        let shoppingCartProduct = cart.items.find(shoppingCartProduct => shoppingCartProduct.product.id == item.product.id);
-        if (shoppingCartProduct != undefined) {
-          if (shoppingCartProduct.quantity == 1) {
-            cart.items.splice(cart.items.findIndex(shoppingProduct => shoppingProduct.product.id == shoppingCartProduct?.product.id), 1);
-          } else {
-            shoppingCartProduct.quantity -= 1;
-          }
-          cart.totalQuantity -= 1;
-          localStorage.setItem("cart", JSON.stringify(cart));
-        }
-      });
+    let shoppingCartProduct = this.cart.items.find(shoppingCartProduct => shoppingCartProduct.product.id == item.product.id);
+    if (shoppingCartProduct != undefined) {
+      if (shoppingCartProduct.quantity == 1) {
+        this.cart.items.splice(this.cart.items.findIndex(shoppingProduct => shoppingProduct.product.id == shoppingCartProduct?.product.id), 1);
+      } else {
+        shoppingCartProduct.quantity -= 1;
+      }
+      this.cart.totalQuantity -= 1;
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     }
   }
 
@@ -55,13 +47,9 @@ export class ShoppingCartItemComponent {
   }
 
   removeOrderItem(item: OrderItem) {
-    if (this.cart$ != null) {
-      this.cart$.subscribe((cart: ShoppingCart) => {
-        cart.items.splice(cart.items.findIndex(shoppingProduct => shoppingProduct.product.id == item.product.id), 1);
-        cart.totalQuantity -= item.quantity;
-        localStorage.setItem("cart", JSON.stringify(cart));
-      });
-    }
+    this.cart.items.splice(this.cart.items.findIndex(shoppingProduct => shoppingProduct.product.id == item.product.id), 1);
+    this.cart.totalQuantity -= item.quantity;
+    localStorage.setItem("cart", JSON.stringify(this.cart));
   }
 
   editOrderItem(item: OrderItem) {
