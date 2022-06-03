@@ -10,12 +10,14 @@ import { ShoppingCart } from 'src/app/model/shoppingCart.model';
 export class ShoppingCartService {
 
   cartSize$: BehaviorSubject<number> = new BehaviorSubject(0);
+  cart$: BehaviorSubject<ShoppingCart> = new BehaviorSubject(new ShoppingCart());
 
   constructor() {
 
     let cartString = localStorage.getItem("cart");
     let cart: ShoppingCart = JSON.parse(cartString || "{}");
     this.cartSize$.next(cart.totalQuantity);
+    this.cart$.next(cart);
   }
 
   async addToCart(orderItem: OrderItem) {
@@ -55,18 +57,20 @@ export class ShoppingCartService {
     }
   }
 
-  removeFromCart(productId: number) {
+  removeFromCart(orderItem: OrderItem) {
     let cart: ShoppingCart = JSON.parse(localStorage.getItem("cart") || "{}");
-    cart.items.forEach((orderItem) => {
-      if (orderItem.product.id == productId) {
-        if (orderItem.quantity > 1) {
-          orderItem.quantity -= 1;
+    cart.items.forEach((item) => {
+      if (item.product.id == orderItem.product.id) {
+        if (item.quantity > 1) {
+          item.quantity -= 1;
         } else {
           cart.items.splice(cart.items.findIndex(element => element.id == orderItem.id), 1);
         }
-
       }
+      cart.totalQuantity -= item.quantity;
     })
+
+    this.cartSize$.next(cart.totalQuantity);
     localStorage.setItem("cart", JSON.stringify(cart));
 
   }

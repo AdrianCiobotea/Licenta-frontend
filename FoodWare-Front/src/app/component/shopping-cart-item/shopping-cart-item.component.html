@@ -1,22 +1,39 @@
-<div class="col">{{item.product.name}}</div>
-<div class="col" *ngFor="let extraProduct of item.extra" colspan="2">
-    <div class="row">
-        {{extraProduct.name}}
+<div class="row">
+    <div class="col-8">
+        <div class="col">
+            <h5>{{item.product.name}}</h5>
+        </div>
+        <div class="col" *ngFor="let extraProduct of item.extra" colspan="2">
+            <div class="row">
+                {{extraProduct.name}}
+            </div>
+        </div>
     </div>
-</div>
-<div class="col">
-    <div class="row-sm">
-        <button (click)="decreaseQuantity(item)" class="btn btn-secondary btn-block">-</button>
-        {{item.quantity}}
-        <button (click)="increaseQuantity(item)" class="btn btn-secondary btn-block">+</button>
+    <div class="col-4">
+        <div class="row ">
+            <div class="col-sm">
+                <div class="row-sm float-end">
+                    <button (click)="decreaseQuantity(item)" class="btn btn-sm btn-secondary btn-block">-</button>
+                    {{item.quantity}}
+                    <button (click)="increaseQuantity(item)" class="btn btn-sm btn-secondary btn-block">+</button>
+                </div>
+            </div>
+            <div class="col-sm float-end">
+                <div class="row-sm float-end">
+                <button (click)="removeOrderItem(item)" class="btn btn-sm btn-danger btn-block">Remove</button>
+                </div>
+            </div>
+            <div class="col-sm float-end">
+                <div class="row-sm float-end">
+                <!-- <button (click)="editOrderItem(item)" class="btn btn-secondary btn-block">Edit</button>  -->
+                <modal-shopping-cart [orderItem]="item"></modal-shopping-cart>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
-<div class="col">
-     <!-- <button (click)="editOrderItem(item)" class="btn btn-secondary btn-block">Edit</button>  -->
-     <modal-shopping-cart [orderItem]="item"></modal-shopping-cart>
-</div>
-<div class="col">
-    <button (click)="removeOrderItem(item)" class="btn btn-secondary btn-block">Remove from cart</button>
-</div>
 
-<div class="col">{{getOrderItemPrice(item) | currency:"RON"}}</div>
+    <div class="row">
+        <h6>{{getOrderItemPrice(item) | currency:"RON"}}</h6>
+    </div>
+    <hr>
+</div>

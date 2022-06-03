@@ -1,18 +1,21 @@
 <h1>Shopping Cart</h1>
 <ng-container *ngIf="cart$ | async as cart">
     <div class="container">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col">Product</div>
             <div class="col">Extra</div>
             <div class="col">Quantity</div>
             <div class="col">Price</div>
-        </div>
+        </div> -->
         <div class="row" *ngFor="let item of cart.items">
-              <shopping-cart-item [item]="item" [cart]="cart" ></shopping-cart-item> 
-           
+            <shopping-cart-item [item]="item" [cart]="cart"></shopping-cart-item>
+
         </div>
         <div class="row">
             Total Price : {{getTotalPrice()}}
+        </div>
+        <div class="row">
+            <button (click)="confirmOrder(cart)" class="btn btn-success btn-block">Confirm Order</button>
         </div>
     </div>
 

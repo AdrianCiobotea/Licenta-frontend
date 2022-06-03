@@ -1,8 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { OrderItem } from 'src/app/model/orderItem.model';
-import { ShoppingCart } from 'src/app/model/shoppingCart.model';
 import { SubOrder } from 'src/app/model/sub-order.model';
 
 @Injectable({

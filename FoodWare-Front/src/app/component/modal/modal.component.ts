@@ -37,10 +37,10 @@ export class ModalComponent {
     this.orderItem = new OrderItem();
     this.orderItem.quantity = 1;
 
-    
+
   }
 
- getExtraProducts(categoryId: number) {
+  getExtraProducts(categoryId: number) {
     return this.extraService.getExtrasByCategoryId(categoryId);
   }
 
@@ -62,8 +62,8 @@ export class ModalComponent {
 
   addToCart() {
     const selectedExtras = this.form.value['extras']
-    .map((checked: any, i: number) => checked ? this.extra[i] : null)
-    .filter((v: null) => v !== null);
+      .map((checked: any, i: number) => checked ? this.extra[i] : null)
+      .filter((v: null) => v !== null);
     console.log('### selected', selectedExtras);
     this.orderItem.extra = selectedExtras;
     this.orderItem.product = this.product;
@@ -71,7 +71,7 @@ export class ModalComponent {
     this.modalService.dismissAll();
   }
   removeFromCart() {
-    this.shoppingCartService.removeFromCart(this.product.id);
+    this.shoppingCartService.removeFromCart(this.orderItem);
   }
   getQuantity() {
     let cart: any = JSON.parse(localStorage.getItem("cart") || '{}');
@@ -84,17 +84,17 @@ export class ModalComponent {
     this.orderItem.quantity--;
     console.log(this.orderItem);
   }
-addCheckBoxesToForm(){
-}
+  addCheckBoxesToForm() {
+  }
 
-get extrasFormArray(){
-  return this.form.controls['extras'] as FormArray;
-}
+  get extrasFormArray() {
+    return this.form.controls['extras'] as FormArray;
+  }
 
-submit() {
-  const selectedExtras = this.form.value['extras']
-    .map((checked: any, i: string | number) => checked ? this.extra : null)
-    .filter((v: null) => v !== null);
-}
+  submit() {
+    const selectedExtras = this.form.value['extras']
+      .map((checked: any, i: string | number) => checked ? this.extra : null)
+      .filter((v: null) => v !== null);
+  }
 
 }

@@ -1,8 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AppConstants } from 'src/app/constants/app.constants';
-import { User } from 'src/app/model/user.model';
-import { environment } from 'src/environments/environment';
 
 
 @Injectable({

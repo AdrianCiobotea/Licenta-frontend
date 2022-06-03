@@ -44,4 +44,8 @@ export class ShoppingCartComponent implements OnInit {
     return totalPrice;
   }
 
+confirmOrder(cart:ShoppingCart){
+
+}
+
 }
