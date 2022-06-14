@@ -3,7 +3,7 @@ import { Product } from "./product.model";
 
 export class OrderItem {
 
-    public id: number;
+    public id: string;
     public quantity: number;
     public status_id: number;
     public product: Product;
@@ -11,7 +11,7 @@ export class OrderItem {
     public extra: Extra[] = [];
 
 
-    constructor(id?: number, quantity?: number, sub_order_id?: number, product?: Product, status_id?: number) {
+    constructor(id?: string, quantity?: number, sub_order_id?: number, product?: Product, status_id?: number) {
         this.id = id!;
         this.quantity = quantity!;
         this.sub_order_id = sub_order_id!;

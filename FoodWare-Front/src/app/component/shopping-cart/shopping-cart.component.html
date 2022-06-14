@@ -12,7 +12,7 @@
 
         </div>
         <div class="row">
-            Total Price : {{getTotalPrice()}}
+            Total Price : {{getTotalPrice() | async}}
         </div>
         <div class="row">
             <button (click)="confirmOrder(cart)" class="btn btn-success btn-block">Confirm Order</button>

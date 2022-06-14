@@ -4,7 +4,6 @@ import { Product } from '../model/product.model';
 import { Subscription, switchMap } from 'rxjs';
 import { ProductService } from '../service/product/product.service';
 import { Category } from '../model/category.model';
-import { SubOrderService } from '../service/sub-order/sub-order.service';
 
 @Component({
   selector: 'products',
@@ -19,8 +18,6 @@ export class ProductsComponent implements OnInit, OnDestroy{
   filteredProducts: Product[] = [];
   categoryId!: number;
   groupId!:number;
-  subOrderService!: SubOrderService;
-  subOrder!: any;
   subscription: Subscription = new Subscription;
 
   constructor(

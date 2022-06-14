@@ -4,9 +4,9 @@ import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-
 import { Extra } from 'src/app/model/extra.model';
 import { OrderItem } from 'src/app/model/orderItem.model';
 import { Product } from 'src/app/model/product.model';
-import { ShoppingCart } from 'src/app/model/shoppingCart.model';
 import { ExtraService } from 'src/app/service/extra/extra.service';
 import { ShoppingCartService } from 'src/app/service/shoppingCart/shopping-cart.service';
+import * as uuid from 'uuid';
 
 @Component({
   selector: 'modal',
@@ -34,7 +34,7 @@ export class ModalComponent {
     this.form = this.formBuilder.group({
       extras: new FormArray([])
     });
-    this.orderItem = new OrderItem();
+    this.orderItem = new OrderItem(uuid.v4());
     this.orderItem.quantity = 1;
 
 

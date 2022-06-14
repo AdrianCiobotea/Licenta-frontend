@@ -13,20 +13,20 @@
         <div class="row ">
             <div class="col-sm">
                 <div class="row-sm float-end">
-                    <button (click)="decreaseQuantity(item)" class="btn btn-sm btn-secondary btn-block">-</button>
+                    <button (click)="decreaseQuantity()" class="btn btn-sm btn-secondary btn-block">-</button>
                     {{item.quantity}}
-                    <button (click)="increaseQuantity(item)" class="btn btn-sm btn-secondary btn-block">+</button>
+                    <button (click)="increaseQuantity()" class="btn btn-sm btn-secondary btn-block">+</button>
                 </div>
             </div>
             <div class="col-sm float-end">
                 <div class="row-sm float-end">
-                <button (click)="removeOrderItem(item)" class="btn btn-sm btn-danger btn-block">Remove</button>
+                    <button (click)="removeOrderItem()" class="btn btn-sm btn-danger btn-block">Remove</button>
                 </div>
             </div>
             <div class="col-sm float-end">
                 <div class="row-sm float-end">
-                <!-- <button (click)="editOrderItem(item)" class="btn btn-secondary btn-block">Edit</button>  -->
-                <modal-shopping-cart [orderItem]="item"></modal-shopping-cart>
+                    <!-- <button (click)="editOrderItem(item)" class="btn btn-secondary btn-block">Edit</button>  -->
+                    <modal-shopping-cart [orderItem]="item"></modal-shopping-cart>
                 </div>
             </div>
         </div>

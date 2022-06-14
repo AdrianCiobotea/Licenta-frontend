@@ -2,42 +2,54 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { OrderItem } from 'src/app/model/orderItem.model';
 import { ShoppingCart } from 'src/app/model/shoppingCart.model';
 import { Observable } from 'rxjs';
-import { Product } from 'src/app/model/product.model';
 import { ShoppingCartService } from 'src/app/service/shoppingCart/shopping-cart.service';
+import { Order } from 'src/app/model/order.model';
+import { take } from 'lodash';
 
 @Component({
   selector: 'shopping-cart-item',
   templateUrl: './shopping-cart-item.component.html',
   styleUrls: ['./shopping-cart-item.component.css']
 })
-export class ShoppingCartItemComponent {
+export class ShoppingCartItemComponent implements OnInit {
 
   @Input("item") item!: OrderItem;
-  @Input("cart") cart!: ShoppingCart;
-  constructor(private shoppingCartService: ShoppingCartService) { }
+  @Input("cart") cart!: ShoppingCart | null;
 
-
-  increaseQuantity(item: OrderItem) {
-    let product = this.cart.items.find(shoppingCartProduct => shoppingCartProduct.product.id == item.product.id);
-    if (product != undefined) {
-      product.quantity += 1;
-      this.cart.totalQuantity += 1;
-    }
-    localStorage.setItem("cart", JSON.stringify(this.cart));
+  constructor(private shoppingCartService: ShoppingCartService) {
   }
-  decreaseQuantity(item: OrderItem) {
-    
-    let shoppingCartProduct = this.cart.items.find(shoppingCartProduct => shoppingCartProduct.product.id == item.product.id);
-    if (shoppingCartProduct != undefined) {
-      if (shoppingCartProduct.quantity == 1) {
-        this.cart.items.splice(this.cart.items.findIndex(shoppingProduct => shoppingProduct.product.id == shoppingCartProduct?.product.id), 1);
-      } else {
-        shoppingCartProduct.quantity -= 1;
+  ngOnInit() {
+
+  }
+
+  increaseQuantity() {
+    console.log(this.item);
+      this.cart?.items.forEach((shoppingItem: OrderItem) => {
+        if (this.item.id == shoppingItem.id) {
+          shoppingItem.quantity += 1;
+        }
+      })
+      if (this.cart) {
+        this.shoppingCartService.addCartToLocalStorage(this.cart);
       }
-      this.cart.totalQuantity -= 1;
-      localStorage.setItem("cart", JSON.stringify(this.cart));
-    }
   }
+  decreaseQuantity() {
+      console.log('### decrease');
+      this.cart?.items.forEach((item: OrderItem) => {
+        if (item.id == this.item.id) {
+          if (this.item.quantity == 1) {
+            this.cart?.items.splice(this.cart?.items.findIndex(shoppingProduct => shoppingProduct.id == this.item?.id), 1);
+          } else {
+            item.quantity -= 1;
+          }
+        }
+      })
+      if (this.cart) {
+        this.shoppingCartService.addCartToLocalStorage(this.cart);
+      }
+
+  }
+
 
   getOrderItemPrice(orderItem: OrderItem) {
     let totalPrice = orderItem.product.price;
@@ -48,13 +60,14 @@ export class ShoppingCartItemComponent {
     return totalPrice;
   }
 
-  removeOrderItem(item: OrderItem) {
-    this.shoppingCartService.removeFromCart(item);
-    this.cart.items.splice(this.cart.items.findIndex(shoppingProduct => shoppingProduct.product.id == item.product.id), 1);
-    this.cart.totalQuantity -= item.quantity;
-    // localStorage.setItem("cart", JSON.stringify(this.cart));
+  removeOrderItem() {
+    // this.shoppingCartService.removeFromCart(item);
+      this.cart?.items.splice(this.cart?.items.findIndex(shoppingProduct => shoppingProduct.id == this.item.id), 1);
+      console.log(this.cart?.totalQuantity);
+      if (this.cart) {
+        this.shoppingCartService.addCartToLocalStorage(this.cart);
+      }
   }
-
   editOrderItem(item: OrderItem) {
 
   }

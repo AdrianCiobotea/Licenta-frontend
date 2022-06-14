@@ -40,9 +40,9 @@ export class ShoppingCartService {
     console.log('#### items', items);
     cart.items = items;
 
-    localStorage.setItem("cart", JSON.stringify(cart));
+    this.addCartToLocalStorage(cart);
     console.log('#### items2', cart);
-    this.cartSize$.next(cart.totalQuantity);
+    this.updateTotalQuantity;
   }
 
   getOrCreateCartId() {
@@ -52,7 +52,7 @@ export class ShoppingCartService {
       return cart.id;
     } else {
       let cart: any = new ShoppingCart();
-      localStorage.setItem('cart', JSON.stringify(cart));
+      this.addCartToLocalStorage(cart);
       return cart['id'];
     }
   }
@@ -60,7 +60,7 @@ export class ShoppingCartService {
   removeFromCart(orderItem: OrderItem) {
     let cart: ShoppingCart = JSON.parse(localStorage.getItem("cart") || "{}");
     cart.items.forEach((item) => {
-      if (item.product.id == orderItem.product.id) {
+      if (item.id == orderItem.id) {
         if (item.quantity > 1) {
           item.quantity -= 1;
         } else {
@@ -70,8 +70,8 @@ export class ShoppingCartService {
       cart.totalQuantity -= item.quantity;
     })
 
-    this.cartSize$.next(cart.totalQuantity);
-    localStorage.setItem("cart", JSON.stringify(cart));
+    this.updateTotalQuantity;
+    this.addCartToLocalStorage(cart);
 
   }
 
@@ -84,4 +84,20 @@ export class ShoppingCartService {
     }
   }
 
+  addCartToLocalStorage(cart: ShoppingCart) {
+    this.updateTotalQuantity();
+    this.cart$.next(cart);
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  updateTotalQuantity() {
+    this.cart$.subscribe((cart: ShoppingCart) => {
+      let totalQuantity = 0;
+      cart.items.forEach((item: OrderItem) => {
+        totalQuantity += item.quantity;
+      })
+      cart.totalQuantity = totalQuantity;
+      this.cartSize$.next(totalQuantity);
+    })
+  }
 }

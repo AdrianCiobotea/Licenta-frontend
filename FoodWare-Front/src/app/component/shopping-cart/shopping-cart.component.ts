@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map } from 'lodash';
+import { Observable, of, switchMap, take } from 'rxjs';
 import { OrderItem } from 'src/app/model/orderItem.model';
 import { Product } from 'src/app/model/product.model';
 import { ShoppingCart } from 'src/app/model/shoppingCart.model';
@@ -16,14 +17,11 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(private shoppingCartService: ShoppingCartService) { }
 
-  async ngOnInit() {
-    this.cart$ = await this.shoppingCartService.getCart();
-    this.cart$?.subscribe(cart=>{
-      console.log(cart.items);
-    })
+  ngOnInit() {
+    this.cart$ = this.shoppingCartService.cart$;
   }
 
-  getOrderItemPrice(orderItem: OrderItem) {
+  private getOrderItemPrice(orderItem: OrderItem) {
     if (orderItem != null) {
       let totalPrice = orderItem.product.price;
       orderItem.extra.forEach(extraProduct => {
@@ -36,16 +34,18 @@ export class ShoppingCartComponent implements OnInit {
   }
 
 
-  getTotalPrice() {
+  getTotalPrice(): Observable<number> | undefined {
     let totalPrice = 0;
-    this.cart$?.subscribe(cart => {
-      cart.items.forEach(item => totalPrice += this.getOrderItemPrice(item));
-    })
-    return totalPrice;
+    return this.cart$?.pipe(
+      take(1),
+      switchMap((cart: ShoppingCart) => {
+      cart.items.forEach((item: OrderItem) => totalPrice += this.getOrderItemPrice(item));
+      return of(totalPrice);
+    }));
   }
 
-confirmOrder(cart:ShoppingCart){
+  confirmOrder(cart: ShoppingCart) {
 
-}
+  }
 
 }
