@@ -24,6 +24,7 @@ import { RegisterComponent } from './component/register-form/register.component'
 import { ShoppingCartItemComponent } from './component/shopping-cart-item/shopping-cart-item.component';
 import { ModalShoppingCartComponent } from './component/modal-shopping-cart/modal-shopping-cart.component';
 import { AuthInterceptor } from './service/auth/auth.interceptor';
+import { GroupShoppingCartComponent } from './component/group-shopping-cart/group-shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { AuthInterceptor } from './service/auth/auth.interceptor';
     RegisterComponent,
     ShoppingCartItemComponent,
     ModalShoppingCartComponent,
+    GroupShoppingCartComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +55,7 @@ import { AuthInterceptor } from './service/auth/auth.interceptor';
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
+      { path: 'group-cart', component: GroupShoppingCartComponent },
       // { 
       //   path: 'admin/products/new', 
       //   component: ProductFormComponent

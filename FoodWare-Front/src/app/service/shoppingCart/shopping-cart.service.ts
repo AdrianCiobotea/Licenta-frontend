@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 import { BehaviorSubject, of } from 'rxjs';
@@ -8,11 +9,12 @@ import { ShoppingCart } from 'src/app/model/shoppingCart.model';
   providedIn: 'root'
 })
 export class ShoppingCartService {
+  
 
   cartSize$: BehaviorSubject<number> = new BehaviorSubject(0);
   cart$: BehaviorSubject<ShoppingCart> = new BehaviorSubject(new ShoppingCart());
 
-  constructor() {
+  constructor(private http:HttpClient) {
 
     let cartString = localStorage.getItem("cart");
     let cart: ShoppingCart = JSON.parse(cartString || "{}");
@@ -99,5 +101,8 @@ export class ShoppingCartService {
       cart.totalQuantity = totalQuantity;
       this.cartSize$.next(totalQuantity);
     })
+  }
+  sendSubOrderToDatabase(cart: ShoppingCart) {
+    return this.http.post('http://localhost:8082/subOrder/insert',JSON.stringify(cart),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 }

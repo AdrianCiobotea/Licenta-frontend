@@ -15,7 +15,7 @@
             Total Price : {{getTotalPrice() | async}}
         </div>
         <div class="row">
-            <button (click)="confirmOrder(cart)" class="btn btn-success btn-block">Confirm Order</button>
+            <button (click)="confirmOrder(cart)" routerLink="/group-cart" class="btn btn-success btn-block">Confirm Order</button>
         </div>
     </div>
 

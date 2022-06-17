@@ -45,7 +45,7 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   confirmOrder(cart: ShoppingCart) {
-
+this.shoppingCartService.sendSubOrderToDatabase(cart);
   }
 
 }
