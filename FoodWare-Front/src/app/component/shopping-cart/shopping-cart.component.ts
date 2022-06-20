@@ -36,16 +36,20 @@ export class ShoppingCartComponent implements OnInit {
 
   getTotalPrice(): Observable<number> | undefined {
     let totalPrice = 0;
-    return this.cart$?.pipe(
-      take(1),
-      switchMap((cart: ShoppingCart) => {
-      cart.items.forEach((item: OrderItem) => totalPrice += this.getOrderItemPrice(item));
-      return of(totalPrice);
-    }));
+    if(this.cart$!=null){
+      return this.cart$?.pipe(
+        take(1),
+        switchMap((cart: ShoppingCart) => {
+        cart.items.forEach((item: OrderItem) => totalPrice += this.getOrderItemPrice(item));
+        return of(totalPrice);
+      }));
+    }
+    return undefined;
   }
 
   confirmOrder(cart: ShoppingCart) {
-this.shoppingCartService.sendSubOrderToDatabase(cart);
+    console.log("### Entered confirmOrder")
+this.shoppingCartService.sendSubOrderToDatabase(cart).subscribe();
   }
 
 }

@@ -20,9 +20,15 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
   validateUser(loginForm: NgForm) {
-    this.authService.validateLoginDetails(loginForm).subscribe((response : any) => {
+    this.authService.validateLoginDetails(loginForm).subscribe((response: any) => {
       console.log(response);
-      localStorage.setItem("token",response["token"]);
+      if (response == null) {
+        this.invalidLogin = true;
+      } else {
+        localStorage.setItem("token", response["token"]);
+        this.invalidLogin = false;
+      }
+
     });
   }
 

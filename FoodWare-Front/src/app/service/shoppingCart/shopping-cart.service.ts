@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
+import { uniqueId } from 'lodash';
 import { BehaviorSubject, of } from 'rxjs';
 import { OrderItem } from 'src/app/model/orderItem.model';
 import { ShoppingCart } from 'src/app/model/shoppingCart.model';
@@ -29,8 +30,10 @@ export class ShoppingCartService {
     localStorage.removeItem("cart");
 
     if (!cart) {
-      cart = new ShoppingCart(1);
+      cart = new ShoppingCart();
+      cart.id = 1;
     }
+    
     const items: OrderItem[] = cart.items || [];
     items.push(orderItem);
 
@@ -47,17 +50,6 @@ export class ShoppingCartService {
     this.updateTotalQuantity;
   }
 
-  getOrCreateCartId() {
-    let cart: any = localStorage.getItem('cart')! || '{}';
-
-    if (cart.id) {
-      return cart.id;
-    } else {
-      let cart: any = new ShoppingCart();
-      this.addCartToLocalStorage(cart);
-      return cart['id'];
-    }
-  }
 
   removeFromCart(orderItem: OrderItem) {
     let cart: ShoppingCart = JSON.parse(localStorage.getItem("cart") || "{}");
@@ -103,6 +95,7 @@ export class ShoppingCartService {
     })
   }
   sendSubOrderToDatabase(cart: ShoppingCart) {
+    console.log("entered subOrder service",JSON.stringify(cart));
     return this.http.post('http://localhost:8082/subOrder/insert',JSON.stringify(cart),  {headers : new HttpHeaders({ 'Content-Type': 'application/json' })});
   }
 }

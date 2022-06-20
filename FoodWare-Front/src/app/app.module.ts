@@ -25,6 +25,7 @@ import { ShoppingCartItemComponent } from './component/shopping-cart-item/shoppi
 import { ModalShoppingCartComponent } from './component/modal-shopping-cart/modal-shopping-cart.component';
 import { AuthInterceptor } from './service/auth/auth.interceptor';
 import { GroupShoppingCartComponent } from './component/group-shopping-cart/group-shopping-cart.component';
+import { UnmodifiableShoppingItemComponent } from './component/unmodifiable-shopping-item/unmodifiable-shopping-item.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { GroupShoppingCartComponent } from './component/group-shopping-cart/grou
     ShoppingCartItemComponent,
     ModalShoppingCartComponent,
     GroupShoppingCartComponent,
+    UnmodifiableShoppingItemComponent,
   ],
   imports: [
     BrowserModule,
