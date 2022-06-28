@@ -11,8 +11,8 @@
     
         <div class="card-body col-6">
           <h4 class="card-title">{{ product.name }}</h4>
-          <p class="card-text">Price: {{ product.price | currency:'RON':"symbol" }}</p>
           <p class="card-text">Description: {{ product.description }}</p>
+          <p class="card-text">Price: {{ product.price | currency:'RON':"symbol" }}</p>
         </div>
       </div>
       <div *ngIf="showActions" class="card-footer">

@@ -9,7 +9,7 @@ import { ShoppingCartService } from 'src/app/service/shoppingCart/shopping-cart.
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  
+  userLoggedIn=false;
   totalQuantity: number = 0;
   cartSize$: BehaviorSubject<number> = new BehaviorSubject(0);
 

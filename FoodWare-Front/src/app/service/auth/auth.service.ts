@@ -16,15 +16,12 @@ export class AuthService {
 
   validateLoginDetails(loginForm: any) {
     return this.http.post("http://localhost:8085/user/login", JSON.stringify(loginForm), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).pipe(map((res: any) => {
-    if(res!=null){
-      if (res.status == 201) {
+      if (res.token) {
         this.isLoggedIn = true;
-        if (this.redirectUrl) {
-          this.router.navigate([this.redirectUrl]);
-          this.redirectUrl = "";
-        }
+        console.log(res["token"]);
+        return res["token"];
       }
-    }  
+      return undefined;
     }));
   }
   registerUser(registerForm: any) {
