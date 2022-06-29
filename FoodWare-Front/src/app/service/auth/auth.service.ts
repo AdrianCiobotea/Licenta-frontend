@@ -1,14 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { map } from 'rxjs';
+import { BehaviorSubject, map, Observable, of } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  isLoggedIn: boolean = false;
+  public isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   public redirectUrl!: string;
 
 
@@ -17,7 +17,6 @@ export class AuthService {
   validateLoginDetails(loginForm: any) {
     return this.http.post("http://localhost:8085/user/login", JSON.stringify(loginForm), { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).pipe(map((res: any) => {
       if (res.token) {
-        this.isLoggedIn = true;
         console.log(res["token"]);
         return res["token"];
       }
@@ -31,6 +30,7 @@ export class AuthService {
     return localStorage.getItem("token");
   }
   logout() {
-    this.isLoggedIn = false;
+    this.isLoggedIn$.next(false);
+    localStorage.removeItem("token");
   }
 }

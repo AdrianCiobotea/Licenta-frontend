@@ -22,11 +22,12 @@ export class LoginComponent implements OnInit {
   validateUser(loginForm: NgForm) {
     this.authService.validateLoginDetails(loginForm).subscribe((response: any) => {
       console.log(response);
-      if (!response) {
+      if (!response && !response["token"]) {
         this.invalidLogin = true;
       } else {
         localStorage.setItem("token", response);
         this.invalidLogin = false;
+        this.authService.isLoggedIn$.next(true);
         this.router.navigate(["/products"]);
       }
 
