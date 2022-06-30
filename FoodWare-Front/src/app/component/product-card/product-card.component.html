@@ -5,8 +5,10 @@
     <div *ngIf="product.name" class="card">
       <div class="row">
         <div class="image col-6">
-          <img *ngIf="product.imageId" class="card-img-top" src="http://localhost:8084/product/image/{{product.id}}"
+          <div style="text-align: center;">
+            <img *ngIf="product.imageId" style="max-width: 110px;" class="card-img-top" src="http://localhost:8084/product/image/{{product.id}}"
             alt="{{ product.name }}">
+          </div>
         </div>
     
         <div class="card-body col-6">
